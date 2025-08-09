@@ -1,3 +1,6 @@
+20250809：增加密码验证，默认密码admin123，删除.htpasswd为重置密码
+
+
 m3u8-downloader主页：https://github.com/llychao/m3u8-downloader
 
 m3u8-downloader下载：https://github.com/llychao/m3u8-downloader/releases
