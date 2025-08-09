@@ -1,39 +1,39 @@
 ﻿<?php
 // 配置文件
-define('APP_ROOT', '/var/www/html/m3u8'); // 默认文件名
-define('DEFAULT_DOWNLOAD_DIR', '/media/wang.ntfs/downloads'); // 默认下载目录
-define('LOG_DIR', APP_ROOT . '/logs'); // 默认日志
-define('BINARY_PATH', APP_ROOT . '/m3u8-downloader'); // 默认m3u8-downloader主程序
-define('DEFAULT_FILENAME', 'movie'); // 默认下载文件命名
-define('ACTIVE_TASKS_FILE', LOG_DIR . '/active_tasks.json'); // 活跃任务存储文件
+define('APP_ROOT'定义('APP_ROOT', '/var/www/html/m3u8'); // 默认文件名'/var/www/html/m3u8'); // 默认文件名
+define('DEFAULT_DOWNLOAD_DIR'定义('DEFAULT_DOWNLOAD_DIR', '/media/wang.ntfs/downloads'); // 默认下载目录'/media/wang.ntfs/downloads'); // 默认下载目录
+define('LOG_DIR'定义('LOG_DIR', APP_ROOT . '/logs'); // 默认日志APP_ROOT . '/logs'); // 默认日志
+define('BINARY_PATH'定义('BINARY_PATH', APP_ROOT . '/m3u8-downloader'); // 默认m3u8-downloader主程序APP_ROOT . '/m3u8-downloader'); // 默认m3u8-downloader主程序
+define('DEFAULT_FILENAME'定义('DEFAULT_FILENAME', 'movie'); // 默认下载文件命名'movie'); // 默认下载文件命名
+define('ACTIVE_TASKS_FILE'定义('ACTIVE_TASKS_FILE', LOG_DIR . '/active_tasks.json'); // 活跃任务存储文件LOG_DIR . '/active_tasks.json'); // 活跃任务存储文件
 
 // 开启输出缓冲
-ob_start();
+ob_start()ob_start();
 
 // 创建必要目录
-@mkdir(DEFAULT_DOWNLOAD_DIR, 0777, true);
-@mkdir(LOG_DIR, 0777, true);
+@mkdir(DEFAULT_DOWNLOAD_DIR, 0777, true);mkdir(DEFAULT_DOWNLOAD_DIR, 0777, true);
+@mkdir(LOG_DIR, 0777, true);mkdir(LOG_DIR, 0777, true);
 
 // 错误处理设置
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', LOG_DIR . '/php_errors.log');
+ini_set('display_errors'ini_set('display_errors', 0);0);
+ini_set('log_errors'ini_set('log_errors', 1);1);
+ini_set('error_log'ini_set('error_log', LOG_DIR . '/php_errors.log');LOG_DIR . '/php_errors.log');
 
 // 初始化活跃任务文件
-if (!file_exists(ACTIVE_TASKS_FILE)) {
-    file_put_contents(ACTIVE_TASKS_FILE, '[]');
+ifif (!file_exists(ACTIVE_TASKS_FILE)) {(!file_exists(ACTIVE_TASKS_FILE)) {
+    file_put_contents(ACTIVE_TASKS_FILE, '[]');file_put_contents(ACTIVE_TASKS_FILE, '[]');
 }
 
 // 处理获取活跃任务请求
-if (isset($_GET['get_active_tasks'])) {
-    try {
-        $activeTasks = json_decode(file_get_contents(ACTIVE_TASKS_FILE), true) ?: [];
+ifif (isset($_GET['get_active_tasks'])) {(isset($_GET['get_active_tasks'])) {
+    尝试 {try {
+        $activeTasks = json_decode(file_get_contents(ACTIVE_TASKS_FILE), true) ?: [];$activeTasks = json_decode(file_get_contents(ACTIVE_TASKS_FILE), true) ?: [];
         
-        // 过滤掉已完成的任务
-        $filteredTasks = [];
-        foreach ($activeTasks as $task) {
-            // 检查PID文件是否存在
-            $pidFile = $task['pid_file'] ?? '';
+        // 过滤掉已完成的任务// 过滤掉已完成的任务
+        $filteredTasks = [];$filteredTasks = [];
+        foreach ($activeTasks as $task) {foreach ($activeTasks as $task) {
+            // 检查PID文件是否存在// 检查PID文件是否存在
+            $pidFile = $task['pid_file'] ?? '';$pidFile = $task['pid_file'] ?? '';
             if (!file_exists($pidFile)) {
                 continue;
             }
